@@ -41,7 +41,7 @@ const createTableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (
     data JSONB
 )`;
 
-const addNewCharacterQuery = `INSERT INTO ${tableName} (name, data) VALUES ($1, $2)`;
+const addNewCharacterQuery = `INSERT INTO ${tableName} (id, name, data) VALUES ($1, $2, $3)`;
 
 conn.query(createTableQuery, (err, q) => {
     if (err) throw err;
@@ -72,7 +72,7 @@ https.get('https://rickandmortyapi.com/api/character', (res) => {
 
                     for (const character of charactersArray) {
 
-                        conn.query(addNewCharacterQuery, [character.name, character], (err, q) => {
+                        conn.query(addNewCharacterQuery, [character.id, character.name, character], (err, q) => {
                             if (err) throw err;
                         });
 
